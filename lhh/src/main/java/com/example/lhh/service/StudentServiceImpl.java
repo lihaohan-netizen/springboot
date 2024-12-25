@@ -1,7 +1,9 @@
 package com.example.lhh.service;
 
+import com.example.lhh.converter.StudentConverter;
 import com.example.lhh.dao.Student;
 import com.example.lhh.dao.StudentRepository;
+import com.example.lhh.dto.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,9 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
 
     @Override
-    public Student getStudentById(long id){
-        return null;
+    public StudentDTO getStudentById(long id){
+
+        Student student = studentRepository.findById(id).orElseThrow(RuntimeException::new);
+        return StudentConverter.convertStudent(student);
     }
 }
